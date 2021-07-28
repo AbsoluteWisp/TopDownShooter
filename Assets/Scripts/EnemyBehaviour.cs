@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
 	// Private data
-	public 
 	private Rigidbody2D LocalRB;
 
 	void Awake() {
