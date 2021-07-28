@@ -44,3 +44,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1353693513
+    locked: 0
+  - name: Projectiles
+    uniqueID: 1614959015
+    locked: 0
+  - name: Terrain
+    uniqueID: 2532535203
+    locked: 0
+  - name: Characters
+    uniqueID: 422867321
+    locked: 0
