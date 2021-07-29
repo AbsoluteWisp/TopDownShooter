@@ -2,18 +2,29 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-	// Private data
-	private Rigidbody2D LocalRB;
+	public float health;
+	public float maxHealth;
+	public float attackDamage;
+
+	private GameObject gameManager;
+	private ScoreSystem scoreSystem;
 
 	void Awake() {
-		LocalRB = gameObject.GetComponent<Rigidbody2D>();
+		health = maxHealth;
+		gameManager = GameObject.FindGameObjectWithTag("GameManager");
+		scoreSystem = gameManager.GetComponent<ScoreSystem>();
 	}
 
 	void Update() {
-		
+		if (health <= 0) {
+			scoreSystem.RewardPlayer(ScoreSystem.pointReasons.enemyKilled);
+			Destroy(gameObject);
+		}
 	}
 
-	public void OnHit() {
-		
+	public void OnHit(float damage) {
+		health -= damage;
+
+		scoreSystem.RewardPlayer(ScoreSystem.pointReasons.enemyHit);
 	}
 }

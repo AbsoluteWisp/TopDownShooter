@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
 			Physics2D.IgnoreCollision(projectile.GetComponent<Collider2D>(), gameObject.GetComponent<Collider2D>());
 			projectile.GetComponent<ProjectileBehaviour>().player = gameObject;
 			projectile.GetComponent<ProjectileBehaviour>().isFriendly = true;
+			projectile.GetComponent<ProjectileBehaviour>().damage = attackDamage;
 			projectile.GetComponent<ProjectileBehaviour>().Initialize();
 		}
 	}

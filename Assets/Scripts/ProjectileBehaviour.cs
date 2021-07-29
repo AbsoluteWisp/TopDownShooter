@@ -38,7 +38,7 @@ public class ProjectileBehaviour : MonoBehaviour
 			switch (hitObject.tag) {
 				case "Enemy":
 					if (isFriendly) {
-						hitObject.GetComponent<EnemyBehaviour>().OnHit();
+						hitObject.GetComponent<EnemyBehaviour>().OnHit(damage);
 						hitSomething = true;
 					}
 					break;
