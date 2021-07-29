@@ -11,11 +11,13 @@ public class PlayerController : MonoBehaviour
 	public GameObject projectilePrefab;
 	public float speed;
 	public Transform projectileParent;
+	public UIUpdater UI;
 
 	// Session data (global data that changes throughout the game session)
 	public float health;
 	public float attackDamage;
 	public int ammo;
+	public int maxAmmo;
 
 	// Private data
 	private PlayerHealth localHealth;
@@ -24,6 +26,7 @@ public class PlayerController : MonoBehaviour
 	void Start() {
 		localRB = gameObject.GetComponent<Rigidbody2D>();
 		localHealth = gameObject.GetComponent<PlayerHealth>();
+		ammo = maxAmmo;
 	}
 
 	void Update() {
@@ -54,6 +57,10 @@ public class PlayerController : MonoBehaviour
 		if (Input.GetKeyDown(keyShoot)) {
 			Shoot();
 		}
+
+		// Update ammo count in UIUpdater
+		UI.inputAmmo = ammo;
+		UI.inputMaxAmmo = maxAmmo;
 	}
 
 	void Shoot() {
