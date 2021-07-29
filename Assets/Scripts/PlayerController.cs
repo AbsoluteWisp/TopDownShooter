@@ -9,13 +9,14 @@ public class PlayerController : MonoBehaviour
 	public KeyCode keyMoveRight;
 	public KeyCode keyMoveLeft;
 	public GameObject projectilePrefab;
-	public float speed;
 	public Transform projectileParent;
 	public UIUpdater UI;
 
-	// Session data (global data that changes throughout the game session)
-	public float health;
+	// Session data, potentially variable
+	
+	public float speed;
 	public float attackDamage;
+	public float projectileSpeed;
 	public int ammo;
 	public int maxAmmo;
 
@@ -52,6 +53,11 @@ public class PlayerController : MonoBehaviour
 		
 		// Update rotation
 		SetRotationOnMouse(); 
+		
+		// Ensure ammo didn't go past the limit
+		if (ammo > maxAmmo) {
+			ammo = maxAmmo;
+		}
 
 		// Shoot if keyShoot was clicked this frame
 		if (Input.GetKeyDown(keyShoot)) {
@@ -66,11 +72,12 @@ public class PlayerController : MonoBehaviour
 	void Shoot() {
 		if (ammo > 0) {
 			ammo -= 1;
-			GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity, projectileParent);
-			Physics2D.IgnoreCollision(projectile.GetComponent<Collider2D>(), gameObject.GetComponent<Collider2D>());
+			GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+			Physics2D.IgnoreCollision(projectile.GetComponent<Collider2D>(), gameObject.GetComponent<Collider2D>(), true);
 			projectile.GetComponent<ProjectileBehaviour>().player = gameObject;
 			projectile.GetComponent<ProjectileBehaviour>().isFriendly = true;
 			projectile.GetComponent<ProjectileBehaviour>().damage = attackDamage;
+			projectile.GetComponent<ProjectileBehaviour>().speed = projectileSpeed;
 			projectile.GetComponent<ProjectileBehaviour>().Initialize();
 		}
 	}
