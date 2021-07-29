@@ -1,6 +1,6 @@
 # TopDownShooter
-This repository is a Unity 2D project - a personal playground of mine. This file is a hybrid of a github readme and a design doc.  
-TL;DR - <b>A fast-paced top-down shooter with satisfying controls</b>
+This repository is a Unity 2D project - a personal playground of mine. This file is a hybrid of a GitHub readme and a design doc.  
+TL;DR - **A fast-paced top-down shooter with satisfying controls**
 
 The project goals
 -----------------
@@ -15,6 +15,7 @@ The blurry feature list
 - **Enjoyable combat** (shooting) system
 - Basic follow-and-shoot **enemy AI**
 - 10 short (3-4 min each) **stages with speedrun potential**
+More info about the plans and WIPs can be found in the project's Trello board over [here](https://trello.com/b/INs7XlZy)
 
 Opening the project files
 -------------------------
@@ -29,3 +30,5 @@ After that, you can simply open the Hub and choose the project from the list.
 Just go to `projectroot/Assets/Scripts` and open any of the `.cs` files there with any text editor.  
 Using the Unity Editor in conjunction is advised, but not required.  
 **Disclaimer**: None of the code is properly commented, so to understand it, you might need to look step-by-step at portions of it  
+
+**Built releases of the project** will be available as GitHub releases **when all the core gameplay** features are **implemented**.
