@@ -7,6 +7,7 @@ public class ProjectileBehaviour : MonoBehaviour
 	public Color friendlyColor;
 	public Color enemyColor;
 	public GameObject player;
+	public Vector3 predictedPlayerPos;
 	public bool isFriendly;
 
 	private bool hitSomething = false;
@@ -14,14 +15,19 @@ public class ProjectileBehaviour : MonoBehaviour
 	
     public void Initialize() {
 		if (isFriendly) {
-			SetRotationOnMouse();
+			// Get the mouse position in world coordinates, on the z=0 plane
+			Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			mouseWorldPos.z = 0; 
+			SetRotationOnPos(mouseWorldPos);
+
 			gameObject.GetComponent<SpriteRenderer>().color = friendlyColor;
-			gameObject.GetComponent<Rigidbody2D>().velocity = transform.right * speed;
 		}
 		else {
+			SetRotationOnPos(predictedPlayerPos);
 			gameObject.GetComponent<SpriteRenderer>().color = enemyColor;
 		}
 		
+		gameObject.GetComponent<Rigidbody2D>().velocity = transform.right * speed;
 		initialized = true;
     }
 
@@ -39,6 +45,9 @@ public class ProjectileBehaviour : MonoBehaviour
 				case "Enemy":
 					if (isFriendly) {
 						hitObject.GetComponent<EnemyBehaviour>().OnHit(damage);
+						hitSomething = true;
+					}
+					else {
 						hitSomething = true;
 					}
 					break;
@@ -66,13 +75,9 @@ public class ProjectileBehaviour : MonoBehaviour
 		}
     }
 
-	void SetRotationOnMouse() {
-		// Get the mouse position in world coordinates, on the z=0 plane
-		Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		mouseWorldPos.z = 0; 
-
+	void SetRotationOnPos(Vector3 pos) {
 		// Rotate at mouseWorldPos by setting the right direction (front of the sprite) to the direction between transform.position and mouseWorldPos
-		transform.right = mouseWorldPos - transform.position;
+		transform.right = pos - transform.position;
 	}
 
 	public void OnHit() {

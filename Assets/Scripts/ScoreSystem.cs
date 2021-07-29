@@ -60,7 +60,6 @@ public class ScoreSystem : MonoBehaviour
 			case pointReasons.enemyKilled:
 				IncreaseScore(rewardEnemyKill);
 				multiplierChange(true);
-				Debug.Log("stepped up multiplier");
 				break;
 			case pointReasons.multiplierIncreased:
 				IncreaseScore(rewardMultiplierIncrease);
@@ -76,7 +75,6 @@ public class ScoreSystem : MonoBehaviour
 		if (increase) {
 			multiplier += multiplierStep;
 			timer = 0f;
-			Debug.Log("right now");
 		}
 		else {
 			multiplier -= multiplierStep;
