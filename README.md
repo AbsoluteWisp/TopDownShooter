@@ -32,3 +32,8 @@ Using the Unity Editor in conjunction is advised, but not required.
 **Disclaimer**: None of the code is properly commented, so to understand it, you might need to look step-by-step at portions of it  
 
 **Built releases of the project** will be available as GitHub releases **when all the core gameplay** features are **implemented**.
+
+Contributing
+------------
+**This is a private project**, the source code of which I've made public. No pull requests will be merged, because this is entirely a solo project.  
+**General feedback is welcome**, please use GitHub Issues to report bugs and give feedback. 
