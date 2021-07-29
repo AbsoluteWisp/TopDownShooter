@@ -22,7 +22,7 @@ public class UIUpdater : MonoBehaviour
 
 	[Header("Score")]
 	public long inputScore;
-	public int inputMultiplier;
+	public float inputMultiplier;
 	
 	[Header("Health bar")]
 	public float fadeTime;
