@@ -9,12 +9,15 @@ public class UIUpdater : MonoBehaviour
 	public TextMeshProUGUI UIScore;
 	public TextMeshProUGUI UIMultiplier;
 	public Slider UIHealth;
+	public TextMeshProUGUI UIAmmo;
+	public TextMeshProUGUI UIMaxAmmo;
 
 	public enum displayTargets {
 		score,
 		multiplier,
 		health,
-		ammo
+		ammo,
+		maxAmmo
 	}
 
 	[Header("Score")]
@@ -25,6 +28,10 @@ public class UIUpdater : MonoBehaviour
 	public float fadeTime;
 	public float inputHealth;
 	public float inputMaxHealth;
+
+	[Header("Ammo")]
+	public int inputAmmo;
+	public int inputMaxAmmo;
 
 	private bool uncofiguredErrorThrown = false;
 	private IEnumerator SmoothHealthCoroutine;
@@ -38,6 +45,7 @@ public class UIUpdater : MonoBehaviour
 		UpdateUI(displayTargets.multiplier);
 		UpdateUI(displayTargets.health);
 		UpdateUI(displayTargets.ammo);
+		UpdateUI(displayTargets.maxAmmo);
 	}
 
 	void UpdateUI(displayTargets element) {
@@ -51,6 +59,12 @@ public class UIUpdater : MonoBehaviour
 			case displayTargets.health:
 				SetHealthMax(inputMaxHealth);
 				UIHealth.value = Mathf.MoveTowards(UIHealth.value, inputHealth, fadeTime * Time.deltaTime);
+				break;
+			case displayTargets.ammo:
+				UIAmmo.text = inputAmmo.ToString();
+				break;
+			case displayTargets.maxAmmo:
+				UIMaxAmmo.text = "/" + inputMaxAmmo;
 				break;
 			default:
 				if (!uncofiguredErrorThrown) {
