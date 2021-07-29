@@ -2,11 +2,19 @@ using UnityEngine;
 
 public class ScoreSystem : MonoBehaviour
 {
-	public float timer = 0f;
-	public float timerCap;
+	public long score;
+
+	private UIUpdater ui;
+	private float timer = 0f;
+	private float timerCap;
+
+	void Start() {
+		ui = gameObject.GetComponent<UIUpdater>();
+	}
 
 	void Update() {
 		TimerTick();
+
 	}
 
 	void TimerTick() {

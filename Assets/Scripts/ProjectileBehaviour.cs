@@ -3,6 +3,7 @@ using UnityEngine;
 public class ProjectileBehaviour : MonoBehaviour
 {
 	public float speed;
+	public float damage;
 	public Color friendlyColor;
 	public Color enemyColor;
 	public GameObject player;
@@ -43,7 +44,7 @@ public class ProjectileBehaviour : MonoBehaviour
 					break;
 				case "Player":
 					if (!isFriendly) {
-						hitObject.GetComponent<PlayerController>().OnHit();
+						hitObject.GetComponent<PlayerHealth>().Hurt(damage);
 						hitSomething = true;
 					}
 					break;
