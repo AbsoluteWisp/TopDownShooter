@@ -12,15 +12,18 @@ public class PlayerController : MonoBehaviour
 	public float speed;
 	public Transform projectileParent;
 
-	// Session data (global data that changes throughout the game session)	
-	public int health;
+	// Session data (global data that changes throughout the game session)
+	public float health;
+	public float attackDamage;
 	public int ammo;
 
 	// Private data
+	private PlayerHealth localHealth;
 	private Rigidbody2D localRB;
 
 	void Start() {
 		localRB = gameObject.GetComponent<Rigidbody2D>();
+		localHealth = gameObject.GetComponent<PlayerHealth>();
 	}
 
 	void Update() {
@@ -64,9 +67,6 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	public void OnHit() {
-		health -= 1;
-	}
 	void SetRotationOnMouse() {
 		// Get the mouse position in world coordinates, on the z=0 plane
 		Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
