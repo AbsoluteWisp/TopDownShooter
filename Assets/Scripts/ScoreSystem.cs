@@ -37,8 +37,12 @@ public class ScoreSystem : MonoBehaviour
 			TimerTick();
 		}
 
+		// UI Updater: Basic scoring
 		UI.inputMultiplier = multiplier;
 		UI.inputScore = score;
+
+		// UI Updater: Multiplier timer slider
+		UI.inputMultiplierTimeRatio = timer / timerCap;
 	}
 
 	void TimerTick() {

@@ -9,15 +9,19 @@ public class UIUpdater : MonoBehaviour
 	public TextMeshProUGUI UIScore;
 	public TextMeshProUGUI UIMultiplier;
 	public Slider UIHealth;
+	public Slider UIMultiplierDurationSlider;
 	public TextMeshProUGUI UIAmmo;
 	public TextMeshProUGUI UIMaxAmmo;
+	public Slider UIStaminaSlider;
 
 	public enum displayTargets {
 		score,
 		multiplier,
 		health,
+		multiplierDuration,
 		ammo,
-		maxAmmo
+		maxAmmo,
+		stamina,
 	}
 
 	[Header("Score")]
@@ -29,9 +33,15 @@ public class UIUpdater : MonoBehaviour
 	public float inputHealth;
 	public float inputMaxHealth;
 
+	[Header("Multiplier duration slider")]
+	public float inputMultiplierTimeRatio;
+
 	[Header("Ammo")]
 	public int inputAmmo;
 	public int inputMaxAmmo;
+
+	[Header("Stamina")]
+	public float inputStaminaMaxRatio;
 
 	private bool uncofiguredErrorThrown = false;
 	private IEnumerator SmoothHealthCoroutine;
@@ -44,8 +54,10 @@ public class UIUpdater : MonoBehaviour
 		UpdateUI(displayTargets.score);
 		UpdateUI(displayTargets.multiplier);
 		UpdateUI(displayTargets.health);
+		UpdateUI(displayTargets.multiplierDuration);
 		UpdateUI(displayTargets.ammo);
 		UpdateUI(displayTargets.maxAmmo);
+		UpdateUI(displayTargets.stamina);
 	}
 
 	void UpdateUI(displayTargets element) {
@@ -60,11 +72,17 @@ public class UIUpdater : MonoBehaviour
 				SetHealthMax(inputMaxHealth);
 				UIHealth.value = Mathf.MoveTowards(UIHealth.value, inputHealth, fadeTime * Time.deltaTime);
 				break;
+			case displayTargets.multiplierDuration:
+				UIMultiplierDurationSlider.value = inputMultiplierTimeRatio;
+				break;
 			case displayTargets.ammo:
 				UIAmmo.text = inputAmmo.ToString();
 				break;
 			case displayTargets.maxAmmo:
 				UIMaxAmmo.text = "/" + inputMaxAmmo;
+				break;
+			case displayTargets.stamina:
+				UIStaminaSlider.value = inputStaminaMaxRatio;
 				break;
 			default:
 				if (!uncofiguredErrorThrown) {

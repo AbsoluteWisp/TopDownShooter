@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
@@ -25,7 +24,8 @@ public class EnemyBehaviour : MonoBehaviour
 		scoreSystem = gameManager.GetComponent<ScoreSystem>();
 	}
 
-	void Update() {
+	// Late to make sure player movement happens earlier
+	void LateUpdate() {
 		predictedPlayerPos = predictPos(playerRB);
 		RotateTowards(predictedPlayerPos);
 
@@ -59,7 +59,6 @@ public class EnemyBehaviour : MonoBehaviour
 	}
 
 	void TimerTick() {
-		
 		attackTimer += Time.deltaTime;
 
 		if (attackTimer >= attackTimerCap) {
@@ -68,9 +67,10 @@ public class EnemyBehaviour : MonoBehaviour
 		}
 	}
 
-	Vector3 predictPos(Rigidbody2D predictingBody) {
-		Vector3 predictableBodyPos = predictingBody.position;
-		Vector3 predictableBodyDir = predictingBody.velocity;
+	Vector3 predictPos(Rigidbody2D predictableBody) {
+		Vector3 predictableBodyPos = predictableBody.position;
+		// The prediction doesn't account for sprinting. This is intentional, to allow the player to "out-run" the turrets
+		Vector3 predictableBodyDir = predictableBody.velocity / player.GetComponent<PlayerController>().sprintSpeedFactor;
 
 		float distanceToPredictableBody = Vector3.Distance(transform.position, predictableBodyPos);
 	

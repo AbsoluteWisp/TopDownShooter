@@ -4,6 +4,7 @@ public class PlayerController : MonoBehaviour
 {
 	// Global data
 	public KeyCode keyShoot;
+	public KeyCode keySprint;
 	public KeyCode keyMoveUp;
 	public KeyCode keyMoveDown;
 	public KeyCode keyMoveRight;
@@ -12,9 +13,12 @@ public class PlayerController : MonoBehaviour
 	public Transform projectileParent;
 	public UIUpdater UI;
 
-	// Session data, potentially variable
-	
+	// Session data, potentially variable, think of it as "stats"
 	public float speed;
+	public float stamina;
+	public float maxStamina;
+	public float sprintSpeedFactor;
+	public float staminaRecoveryFactor;
 	public float attackDamage;
 	public float projectileSpeed;
 	public int ammo;
@@ -28,12 +32,26 @@ public class PlayerController : MonoBehaviour
 		localRB = gameObject.GetComponent<Rigidbody2D>();
 		localHealth = gameObject.GetComponent<PlayerHealth>();
 		ammo = maxAmmo;
+		stamina = maxStamina;
 	}
 
 	void Update() {
 		// Player inputs for this frame
 		float frameVerticalMoveSpeed = 0f;
 		float frameHorizontalMoveSpeed = 0f;
+		float sprintModifier = 1f;
+
+		// Use up stamina while sprinting at a 1:1 rate to seconds sprinting
+		if (Input.GetKey(keySprint) && stamina > 0) {
+			sprintModifier = sprintSpeedFactor;
+			stamina -= Time.deltaTime;
+		}
+		// Recover stamina while not sprinting at 1:staminaRecoveryFactor rate to seconds not sprinting
+		else {
+			if (stamina < maxStamina) {
+				stamina += (Time.deltaTime * staminaRecoveryFactor);
+			}
+		}
 
 		if (Input.GetKey(keyMoveUp)) {
 			frameVerticalMoveSpeed += speed;
@@ -49,7 +67,7 @@ public class PlayerController : MonoBehaviour
 		}
 
 		// Apply frame velocity changes
-		localRB.velocity = new Vector2(frameHorizontalMoveSpeed, frameVerticalMoveSpeed);
+		localRB.velocity = new Vector2(frameHorizontalMoveSpeed, frameVerticalMoveSpeed) * sprintModifier;
 		
 		// Update rotation
 		SetRotationOnMouse(); 
@@ -67,6 +85,9 @@ public class PlayerController : MonoBehaviour
 		// Update ammo count in UIUpdater
 		UI.inputAmmo = ammo;
 		UI.inputMaxAmmo = maxAmmo;
+
+		// Update stamina values in UIUpdater
+		UI.inputStaminaMaxRatio = stamina / maxStamina;
 	}
 
 	void Shoot() {
