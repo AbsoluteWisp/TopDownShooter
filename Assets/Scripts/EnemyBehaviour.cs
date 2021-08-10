@@ -69,11 +69,10 @@ public class EnemyBehaviour : MonoBehaviour
 
 	Vector3 predictPos(Rigidbody2D predictableBody) {
 		Vector3 predictableBodyPos = predictableBody.position;
-		// The prediction doesn't account for sprinting. This is intentional, to allow the player to "out-run" the turrets
-		Vector3 predictableBodyDir = predictableBody.velocity / player.GetComponent<PlayerController>().sprintSpeedFactor;
+		Vector3 predictableBodyDir = predictableBody.velocity;
 
 		float distanceToPredictableBody = Vector3.Distance(transform.position, predictableBodyPos);
-	
+		
 		return predictableBodyPos + (distanceToPredictableBody / projectileSpeed) * predictableBodyDir;
  	}
 }

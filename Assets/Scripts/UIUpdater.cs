@@ -86,7 +86,7 @@ public class UIUpdater : MonoBehaviour
 				break;
 			default:
 				if (!uncofiguredErrorThrown) {
-					Debug.LogError("Encountered displayTarget " + element +  " wasn't handled by the UI Updater @ UIUpdater.cs");
+					Debug.LogError("Encountered displayTarget wasn't handled by the UI Updater @ UIUpdater.cs");
 					uncofiguredErrorThrown = true;
 				}
 				break;

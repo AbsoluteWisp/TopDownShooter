@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SliderColor : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+{	
+	public Slider slider;
+	public Gradient fillColorChange;
+	public Image fillImage;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	void Update() {
+		float sliderNormalized = slider.value / slider.maxValue;
+		fillImage.color = fillColorChange.Evaluate(sliderNormalized);
+	}
 }

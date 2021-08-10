@@ -9,6 +9,7 @@ TagManager:
   - Obstacle
   - GameManager
   - EnemyProjectiles
+  - MenuController
   layers:
   - Default
   - TransparentFX
