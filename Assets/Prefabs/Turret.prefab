@@ -136,7 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   maxHealth: 100
-  attackDamage: 40
-  projectileSpeed: 8
+  attackDamage: 30
+  projectileSpeed: 9
   projectilePrefab: {fileID: 5320423761633599682, guid: 5975eb5780bd19a4ca56ec7330ecc559, type: 3}
-  attackTimerCap: 3
+  attackTimerCap: 2
