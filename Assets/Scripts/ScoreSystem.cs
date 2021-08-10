@@ -8,18 +8,16 @@ public class ScoreSystem : MonoBehaviour
 	public float maxMultiplier;
 	public float minMultiplier;
 	public float multiplierStep;
-	public float timerCap;
+	public float timerTime;
 
 	[Header("Assign these: score for certain actions")]
 	public long rewardEnemyHit;
 	public long rewardEnemyKill;
-	public long rewardMultiplierIncrease;
 	public long rewardRoomClear;
 
 	public enum pointReasons {
 		enemyHit,
 		enemyKilled,
-		multiplierIncreased,
 		roomCleared,
 	}
 
@@ -42,17 +40,17 @@ public class ScoreSystem : MonoBehaviour
 		UI.inputScore = score;
 
 		// UI Updater: Multiplier timer slider
-		UI.inputMultiplierTimeRatio = timer / timerCap;
+		UI.inputMultiplierTimeRatio = timer / timerTime;
 	}
 
 	void TimerTick() {
 		// Simple deltaTime-based timer for multipliers
-		timer += Time.deltaTime;
+		timer -= Time.deltaTime;
 		
-		if (timer >= timerCap) {
+		if (timer <= 0) {
 			// If timer expired, decrease multiplier and reset timer
 			multiplierChange(false);
-			timer = 0f;
+			timer = timerTime;
 		}
 	}
 
@@ -65,9 +63,6 @@ public class ScoreSystem : MonoBehaviour
 				IncreaseScore(rewardEnemyKill);
 				multiplierChange(true);
 				break;
-			case pointReasons.multiplierIncreased:
-				IncreaseScore(rewardMultiplierIncrease);
-				break;
 		}
 	}
 
@@ -78,11 +73,11 @@ public class ScoreSystem : MonoBehaviour
 	void multiplierChange(bool increase) {
 		if (increase) {
 			multiplier += multiplierStep;
-			timer = 0f;
+			timer = timerTime;
 		}
 		else {
 			multiplier -= multiplierStep;
-			timer = 0f;
+			timer = timerTime;
 		}
 
 		// Prevent the multiplier exceeding the min- or max-Multiplier limits
