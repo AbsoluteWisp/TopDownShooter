@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+	public bool isActive = false;
+	public Room memberOfRoom;
 	public float health;
 	public float maxHealth;
 	public float attackDamage;
@@ -26,10 +28,12 @@ public class EnemyBehaviour : MonoBehaviour
 
 	// Late to make sure player movement happens earlier
 	void LateUpdate() {
-		predictedPlayerPos = predictPos(playerRB);
-		RotateTowards(predictedPlayerPos);
+		if (isActive) {
+			predictedPlayerPos = predictPos(playerRB);
+			RotateTowards(predictedPlayerPos);
 
-		TimerTick();
+			TimerTick();		
+		}
 	}
 
 	void Shoot() {
@@ -44,9 +48,16 @@ public class EnemyBehaviour : MonoBehaviour
 	public void OnHit(float damage) {
 		health -= damage;
 		scoreSystem.RewardPlayer(ScoreSystem.pointReasons.enemyHit);
+
+		// Activates this single enemy when attacked
+		if (!isActive) {
+			isActive = true;
+		}
 		
 		if (health <= 0) {
 			scoreSystem.RewardPlayer(ScoreSystem.pointReasons.enemyKilled);
+			memberOfRoom.RemoveEnemy(this);
+
 			Destroy(gameObject);
 		}
 	}

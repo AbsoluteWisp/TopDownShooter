@@ -63,7 +63,11 @@ public class ScoreSystem : MonoBehaviour
 				IncreaseScore(rewardEnemyKill);
 				multiplierChange(true);
 				break;
+			case pointReasons.roomCleared:
+				IncreaseScore(rewardRoomClear);
+				break;
 		}
+		Debug.Log("Player awarded points for " + reason);
 	}
 
 	void IncreaseScore(long awardScore) {
