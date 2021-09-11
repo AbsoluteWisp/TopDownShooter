@@ -134,9 +134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ee786b49d4e1ed48a1b2e9043b42c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 0
+  memberOfRoom: {fileID: 0}
   health: 0
   maxHealth: 100
   attackDamage: 30
-  projectileSpeed: 9
+  projectileSpeed: 11
   projectilePrefab: {fileID: 5320423761633599682, guid: 5975eb5780bd19a4ca56ec7330ecc559, type: 3}
   attackTimerCap: 2
