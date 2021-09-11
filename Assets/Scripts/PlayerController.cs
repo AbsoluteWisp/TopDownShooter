@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
 	public KeyCode keyMoveRight;
 	public KeyCode keyMoveLeft;
 	public GameObject projectilePrefab;
-	public Transform projectileParent;
 	public UIUpdater UI;
 
 	// Session data, potentially variable, think of it as "stats"
@@ -19,6 +18,7 @@ public class PlayerController : MonoBehaviour
 	public float maxStamina;
 	public float sprintSpeedFactor;
 	public float staminaRecoveryFactor;
+	public bool sprintLock;
 	public float attackDamage;
 	public float projectileSpeed;
 	public int ammo;
@@ -39,35 +39,51 @@ public class PlayerController : MonoBehaviour
 		// Player inputs for this frame
 		float frameVerticalMoveSpeed = 0f;
 		float frameHorizontalMoveSpeed = 0f;
-		float sprintModifier = 1f;
-
-		// Use up stamina while sprinting at a 1:1 rate to seconds sprinting
-		if (Input.GetKey(keySprint) && stamina > 0) {
-			sprintModifier = sprintSpeedFactor;
-			stamina -= Time.deltaTime;
-		}
-		// Recover stamina while not sprinting at 1:staminaRecoveryFactor rate to seconds not sprinting
-		else {
-			if (stamina < maxStamina) {
-				stamina += (Time.deltaTime * staminaRecoveryFactor);
-			}
-		}
+		bool sprinting = false;
+		bool stayingStill = false;
 
 		if (Input.GetKey(keyMoveUp)) {
 			frameVerticalMoveSpeed += speed;
 		}
-		else if (Input.GetKey(keyMoveDown)) {
+		if (Input.GetKey(keyMoveDown)) {
 			frameVerticalMoveSpeed -= speed;
 		}
 		if (Input.GetKey(keyMoveRight)) {
 			frameHorizontalMoveSpeed += speed;
 		}
-		else if (Input.GetKey(keyMoveLeft)) {
+		if (Input.GetKey(keyMoveLeft)) {
 			frameHorizontalMoveSpeed -= speed;
 		}
 
+		// Lock sprinting at 0 stamina and unlock it after another independent keypress
+		if (Input.GetKeyDown(keySprint)) {
+			sprintLock = false;
+		}
+		if (stamina <= 0) {
+			sprintLock = true;
+		}
+
+		// Check if any movement will be applied. If not, don't use stamina on sprinting in-place
+		if (frameHorizontalMoveSpeed == 0 && frameVerticalMoveSpeed == 0) {
+			stayingStill = true;
+		}
+
+		// Condition check for sprinting. Separated for readability
+		if (Input.GetKey(keySprint) && stamina > 0 && !sprintLock && !stayingStill) {
+			sprinting = true;
+		}
+
 		// Apply frame velocity changes
-		localRB.velocity = new Vector2(frameHorizontalMoveSpeed, frameVerticalMoveSpeed) * sprintModifier;
+		if (sprinting) {
+			localRB.velocity = new Vector2(frameHorizontalMoveSpeed, frameVerticalMoveSpeed) * sprintSpeedFactor;
+			stamina -= Time.deltaTime;
+		}
+		else {
+			localRB.velocity = new Vector2(frameHorizontalMoveSpeed, frameVerticalMoveSpeed);
+			if (stamina < maxStamina) {
+				stamina += (Time.deltaTime / staminaRecoveryFactor);
+			}
+		}
 		
 		// Update rotation
 		SetRotationOnMouse(); 
