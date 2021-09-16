@@ -300,7 +300,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: StartState
+  m_Name: WaitState
   m_Speed: 99
   m_CycleOffset: 0
   m_Transitions:
