@@ -1,3 +1,5 @@
+// Unused alternate version of camera controller script. Attach and enable on the main Camera to use.
+// Follows the player and looks ahead in the player movement direction.
 using UnityEngine;
 
 public class CameraControllerPlayer : MonoBehaviour
