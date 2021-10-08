@@ -1340,11 +1340,11 @@ MonoBehaviour:
     project''s source public on GitHub and the development plans public on Trello.
     I''ve also been really enthusiastic to work on TDS since then - enough to make
     a playable draft in a little less than 2 weeks. What you''re playing now is the
-    result of about a month of work.
+    result of a couple months of work.
 
 
-    Thanks to the reboot, the MVP goals seem
-    plausible now.'
+    Thanks to the reboot, this project making
+    it to release seems plausible.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
