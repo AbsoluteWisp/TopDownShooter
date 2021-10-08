@@ -15,19 +15,58 @@ public class LevelBar : MonoBehaviour
 	public Sprite clearedSprite;
 
 	[Header("Input")]
-	public string[] stats = new string[4];
-	public bool isCleared;
+	public int levelID;
+	public DataManager dataMgr;
 
-	void Awake() {
-		difficulty.text = stats[0];
-		levelName.text = stats[1];
-		bestTime.text = stats[2];
-		bestScore.text = stats[3];
-		if (isCleared) {
-			cleared.sprite = clearedSprite;
+	void Start() {
+		StatsData data = dataMgr.LoadStats();
+
+		if (dataMgr.GetDifficulty(levelID) != null) {
+			difficulty.text = dataMgr.GetDifficulty(levelID);
 		}
 		else {
-			cleared.sprite = notClearedSprite;
+			difficulty.text = "N/A";
+		}
+
+		if (dataMgr.GetName(levelID) != null) {
+			levelName.text = dataMgr.GetName(levelID);
+		}
+		else {
+			levelName.text = "N/A";
+		}
+
+
+		if (data.times[levelID] != -1f) {
+			bestTime.text = TimePrettyPrint(data.times[levelID]);
+		}
+		else {
+			bestTime.text = "N/A";
+		}
+
+		if (data.scores[levelID] != -1) {
+			bestScore.text = data.scores[levelID].ToString();
+		}
+		else {
+			bestScore.text = "N/A";
+		}
+		
+		cleared.sprite = PickClearedSprite(data.cleared[levelID]);
+	}
+
+	string TimePrettyPrint(float timeSeconds) {
+		float minutes = Mathf.Floor(timeSeconds / 60);
+		float seconds = Mathf.Floor(timeSeconds - (minutes * 60));
+		float secondFractions = timeSeconds - (minutes * 60) - seconds;
+
+		return minutes + ":" + seconds + "," + secondFractions;
+	}
+
+	Sprite PickClearedSprite(bool cleared) {
+		if (cleared == true) {
+			return clearedSprite;
+		}
+		else {
+			return notClearedSprite;
 		}
 	}
 }
