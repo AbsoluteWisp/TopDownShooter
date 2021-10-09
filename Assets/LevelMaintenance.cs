@@ -5,7 +5,7 @@ public class LevelMaintenance : MonoBehaviour
 	DataManager dataMgr;
 
 	private bool timerRunning = true;
-	private float levelTimer = 0f;
+	public float levelTimer = 0f;
 
 	void Start() {
 		dataMgr = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
@@ -16,9 +16,15 @@ public class LevelMaintenance : MonoBehaviour
 		float finalTime = levelTimer;
 		int finalScore = gameObject.GetComponent<ScoreSystem>().score;
 
-		if (finalTime < dataMgr.times[levelID]) {
+		if (dataMgr.times[levelID] != -1) {
+			if (finalTime < dataMgr.times[levelID]) {
+				dataMgr.times[levelID] = finalTime;
+			}
+		}
+		else {
 			dataMgr.times[levelID] = finalTime;
 		}
+
 		if (finalScore > dataMgr.scores[levelID]) {
 			dataMgr.scores[levelID] = finalScore;
 		}

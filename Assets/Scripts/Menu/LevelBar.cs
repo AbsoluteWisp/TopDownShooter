@@ -56,7 +56,7 @@ public class LevelBar : MonoBehaviour
 	string TimePrettyPrint(float timeSeconds) {
 		float minutes = Mathf.Floor(timeSeconds / 60);
 		float seconds = Mathf.Floor(timeSeconds - (minutes * 60));
-		float secondFractions = timeSeconds - (minutes * 60) - seconds;
+		float secondFractions = Mathf.RoundToInt((timeSeconds - (minutes * 60) - seconds) * 100);
 
 		return minutes + ":" + seconds + "," + secondFractions;
 	}
