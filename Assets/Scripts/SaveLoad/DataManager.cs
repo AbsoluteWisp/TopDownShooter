@@ -4,7 +4,6 @@ public class DataManager : MonoBehaviour
 {
 	static int levelCount = 10;
 	
-	[HideInInspector]
 	public float[] times = new float[levelCount];
 	public int[] scores = new int[levelCount];
 	public bool[] cleared = new bool[levelCount];
