@@ -11,6 +11,8 @@ public class PlayerHealth : MonoBehaviour
 
 	void Start() {
 		health = maxHealth;
+		UI.inputHealth = health;
+		UI.inputMaxHealth = maxHealth;
 	}
 
 	void Update() {
@@ -21,10 +23,6 @@ public class PlayerHealth : MonoBehaviour
 
 		UI.inputHealth = health;
 		UI.inputMaxHealth = maxHealth;
-
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			Hurt(10);
-		}
 	}
 
 	public void Hurt(float damage) {

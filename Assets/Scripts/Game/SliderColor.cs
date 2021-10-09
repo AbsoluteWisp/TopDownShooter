@@ -9,6 +9,10 @@ public class SliderColor : MonoBehaviour
 
 	void Update() {
 		float sliderNormalized = slider.value / slider.maxValue;
+
+		if (sliderNormalized < 0) {
+			sliderNormalized = 0;
+		}
 		fillImage.color = fillColorChange.Evaluate(sliderNormalized);
 	}
 }
