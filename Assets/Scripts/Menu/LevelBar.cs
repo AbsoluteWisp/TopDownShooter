@@ -19,7 +19,7 @@ public class LevelBar : MonoBehaviour
 	public DataManager dataMgr;
 
 	void Start() {
-		StatsData data = dataMgr.LoadStats();
+		dataMgr.LoadStats();
 
 		if (dataMgr.GetDifficulty(levelID) != null) {
 			difficulty.text = dataMgr.GetDifficulty(levelID);
@@ -36,27 +36,27 @@ public class LevelBar : MonoBehaviour
 		}
 
 
-		if (data.times[levelID] != -1f) {
-			bestTime.text = TimePrettyPrint(data.times[levelID]);
+		if (dataMgr.times[levelID] != -1f) {
+			bestTime.text = TimePrettyPrint(dataMgr.times[levelID]);
 		}
 		else {
 			bestTime.text = "N/A";
 		}
 
-		if (data.scores[levelID] != -1) {
-			bestScore.text = data.scores[levelID].ToString();
+		if (dataMgr.scores[levelID] != -1) {
+			bestScore.text = dataMgr.scores[levelID].ToString();
 		}
 		else {
 			bestScore.text = "N/A";
 		}
 		
-		cleared.sprite = PickClearedSprite(data.cleared[levelID]);
+		cleared.sprite = PickClearedSprite(dataMgr.cleared[levelID]);
 	}
 
 	string TimePrettyPrint(float timeSeconds) {
 		float minutes = Mathf.Floor(timeSeconds / 60);
 		float seconds = Mathf.Floor(timeSeconds - (minutes * 60));
-		float secondFractions = timeSeconds - (minutes * 60) - seconds;
+		float secondFractions = Mathf.RoundToInt((timeSeconds - (minutes * 60) - seconds) * 100);
 
 		return minutes + ":" + seconds + "," + secondFractions;
 	}
