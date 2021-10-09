@@ -10,7 +10,6 @@ TagManager:
   - GameManager
   - EnemyProjectiles
   - MenuController
-  - CinemachineCamera
   layers:
   - Default
   - TransparentFX
