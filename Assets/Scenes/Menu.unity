@@ -871,7 +871,7 @@ GameObject:
   - component: {fileID: 189870628}
   m_Layer: 0
   m_Name: DataManager
-  m_TagString: Untagged
+  m_TagString: DataManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -888,19 +888,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22a3b3546931fe8489b57cbaae1f4c03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  times:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  scores: d0070000d0070000a00f000070170000000000000000000000000000000000000000000000000000
-  cleared: 01010101000000000000
+  times: []
+  scores: 
+  cleared: 
   difficulties:
   - Easy
   - Easy

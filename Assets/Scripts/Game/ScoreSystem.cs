@@ -3,7 +3,7 @@ using UnityEngine;
 public class ScoreSystem : MonoBehaviour
 {
 	[Header("Basic score data")]
-	public long score;
+	public int score;
 	public float multiplier;
 	public float maxMultiplier;
 	public float minMultiplier;
@@ -67,11 +67,10 @@ public class ScoreSystem : MonoBehaviour
 				IncreaseScore(rewardRoomClear);
 				break;
 		}
-		Debug.Log("Player awarded points for " + reason);
 	}
 
 	void IncreaseScore(long awardScore) {
-		score += (long)(awardScore * multiplier);
+		score += (int)(awardScore * multiplier);
 	}
 
 	void multiplierChange(bool increase) {

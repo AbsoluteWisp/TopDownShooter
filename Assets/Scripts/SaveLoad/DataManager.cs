@@ -15,7 +15,7 @@ public class DataManager : MonoBehaviour
 	void Awake() {
 		DontDestroyOnLoad(this.gameObject);
 
-		if(LoadStats() == null) {
+		if(!LoadStats()) {
 			CreateBlankSave();		
 		}
 	}
@@ -34,12 +34,22 @@ public class DataManager : MonoBehaviour
 		SaveStats(blankTimes, blankScores, blankCleared);
 	}
 
-	public void SaveStats(float[] cTimes, int[] cScores, bool[] cCleared) {
-		SaveSystem.SaveStats(cTimes, cScores, cCleared);
+	public void SaveStats(float[] eTimes, int[] eScores, bool[] eCleared) {
+		SaveSystem.SaveStats(eTimes, eScores, eCleared);
 	}
 
-	public StatsData LoadStats() {
-		return SaveSystem.LoadStats();
+	public bool LoadStats() {
+		StatsData data = SaveSystem.LoadStats();
+
+		if (data == null) {
+			return false;
+		}
+		else {
+			times = data.times;
+			scores = data.scores;
+			cleared = data.cleared;
+			return true;	
+		}
 	}
 
 	public string GetDifficulty(int id) {

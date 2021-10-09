@@ -66,7 +66,6 @@ public class Room : MonoBehaviour
 
 	public void OnTriggerEnter2D(Collider2D collider) {
 		if (collider.gameObject.CompareTag("Player")) {
-			Debug.Log("player is here");
 			cam.targetPos = boxCenterPoint;
 
 			// Visiting an unvisited room marks it as entered and initializes it
